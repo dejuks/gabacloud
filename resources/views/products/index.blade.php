@@ -312,20 +312,26 @@
             <!-- Stars (static for now, extend with real ratings later) -->
             
 
-            <!-- Price + Buy -->
-            <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-50">
-                <div>
-                    <span class="price-tag text-lg font-extrabold">ETB {{ number_format($product->price, 2) }}</span>
-                </div>
-                <a href="{{ route('products.show', $product) }}"
-                   class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                    </svg>
-                    View
-                </a>
-            </div>
+            <!-- Demo/Preview link (replaces price) -->
+<!-- Product Action -->
+<div class="mt-auto pt-3 border-t border-gray-50">
+    <a href="{{ route('products.show', $product) }}"
+       class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2">
+
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+        </svg>
+
+        View Details
+    </a>
+</div>
         </div>
     </div>
 
