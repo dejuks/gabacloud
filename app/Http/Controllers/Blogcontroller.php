@@ -1,5 +1,5 @@
 <?php
-// app/Http/Controllers/BlogController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
@@ -14,7 +14,10 @@ class BlogController extends Controller
 
         if ($request->filled('search')) {
             $s = $request->search;
-            $query->where(fn($q) => $q->where('title', 'like', "%$s%")->orWhere('excerpt', 'like', "%$s%"));
+            $query->where(fn($q) => $q
+                ->where('title', 'like', "%$s%")
+                ->orWhere('excerpt', 'like', "%$s%")
+            );
         }
 
         if ($request->filled('category')) {
@@ -31,9 +34,10 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
-        if ($blog->status !== 'published') abort(404);
+        if ($blog->status !== 'published') {
+            abort(404);
+        }
 
-        // Increment views
         $blog->increment('views');
 
         $related = Blog::published()
@@ -43,7 +47,11 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
-        $recent = Blog::published()->where('id', '!=', $blog->id)->latest('published_at')->take(4)->get();
+        $recent = Blog::published()
+            ->where('id', '!=', $blog->id)
+            ->latest('published_at')
+            ->take(4)
+            ->get();
 
         return view('blog.show', compact('blog', 'related', 'recent'));
     }

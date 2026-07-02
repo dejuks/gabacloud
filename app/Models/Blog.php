@@ -28,4 +28,5 @@ class Blog extends Model
         $minutes = max(1, ceil($words / 200));
         return $minutes . ' min read';
     }
+    
 }
