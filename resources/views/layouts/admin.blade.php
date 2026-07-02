@@ -22,6 +22,8 @@
                 ['route' => 'admin.categories.index',  'icon' => '🗂️',  'label' => 'Categories'],
                 ['route' => 'admin.orders.index',      'icon' => '🛒', 'label' => 'Orders'],
                 ['route' => 'admin.users.index',       'icon' => '👥', 'label' => 'Users'],
+                ['route' => 'admin.blog.index',           'icon' => '📝', 'label' => 'Blog Posts'],
+['route' => 'admin.blog-categories.index','icon' => '🏷️',  'label' => 'Blog Categories'],
             ];
         @endphp
         @foreach($links as $link)

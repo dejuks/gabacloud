@@ -10,12 +10,15 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\BlogController;
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\Admin\AdminBlogCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +33,10 @@ Route::get('/products', [ProductController::class, 'index'])
 
 Route::get('/products/{product}', [ProductController::class, 'show'])
     ->name('products.show');
+
+// Public Blog
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{blog}', [BlogController::class, 'show'])->name('blog.show');
 
 
 /*
@@ -72,18 +79,17 @@ Route::post('/logout', [LogoutController::class, 'logout'])
 
 Route::middleware('auth')->group(function () {
 
+    // Checkout
     Route::get('/checkout/{product}', [PaymentController::class, 'checkout'])
         ->name('payment.checkout');
 
+    // Chapa Return
     Route::get('/payment/return', [PaymentController::class, 'returnFromChapa'])
         ->name('payment.return');
 
+    // Customer Orders
     Route::get('/my-orders', [OrderController::class, 'myOrders'])
         ->name('orders.my');
-
-Route::get('/orders', [OrderController::class, 'index'])
-    ->middleware(['auth', 'admin'])
-    ->name('orders.index');
 
     Route::get('/orders/{order}', [OrderController::class, 'show'])
         ->name('orders.show');
@@ -97,6 +103,7 @@ Route::get('/orders', [OrderController::class, 'index'])
     Route::delete('/orders/{order}', [OrderController::class, 'destroy'])
         ->name('orders.destroy');
 
+    // Download
     Route::get('/orders/{order}/download', [DownloadController::class, 'download'])
         ->name('orders.download');
 
@@ -105,7 +112,7 @@ Route::get('/orders', [OrderController::class, 'index'])
 
 /*
 |--------------------------------------------------------------------------
-| Chapa Webhook
+| Chapa Webhook (no auth needed)
 |--------------------------------------------------------------------------
 */
 
@@ -124,6 +131,7 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
+        // Dashboard
         Route::get('/', [AdminDashboardController::class, 'index'])
             ->name('dashboard');
 
@@ -132,7 +140,7 @@ Route::middleware(['auth', 'admin'])
         Route::post('products/{product}/toggle', [AdminProductController::class, 'toggle'])
             ->name('products.toggle');
 
-        // Categories
+        // Product Categories
         Route::resource('categories', AdminCategoryController::class);
 
         // Orders
@@ -157,4 +165,19 @@ Route::middleware(['auth', 'admin'])
         Route::delete('users/{user}', [AdminUserController::class, 'destroy'])
             ->name('users.destroy');
 
+        // Blog Posts
+// Blog Posts
+Route::get('blog',                [AdminBlogController::class, 'index'])->name('blog.index');
+Route::get('blog/create',         [AdminBlogController::class, 'create'])->name('blog.create');
+Route::post('blog',               [AdminBlogController::class, 'store'])->name('blog.store');
+Route::get('blog/{blog}',         [AdminBlogController::class, 'show'])->name('blog.show');
+Route::get('blog/{blog}/edit',    [AdminBlogController::class, 'edit'])->name('blog.edit');
+Route::put('blog/{blog}',         [AdminBlogController::class, 'update'])->name('blog.update');
+Route::delete('blog/{blog}',      [AdminBlogController::class, 'destroy'])->name('blog.destroy');
+Route::post('blog/{blog}/toggle', [AdminBlogController::class, 'toggle'])->name('blog.toggle');
+
+// Blog Categories
+Route::get('blog-categories',                    [AdminBlogCategoryController::class, 'index'])->name('blog-categories.index');
+Route::post('blog-categories',                   [AdminBlogCategoryController::class, 'store'])->name('blog-categories.store');
+Route::delete('blog-categories/{blogCategory}',  [AdminBlogCategoryController::class, 'destroy'])->name('blog-categories.destroy');
     });
