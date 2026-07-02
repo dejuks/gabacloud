@@ -167,6 +167,9 @@ Route::middleware(['auth', 'admin'])
 
         // Blog Posts
 // Blog Posts
+// Public Blog
+Route::get('/blog',         [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{blog}',  [BlogController::class, 'show'])->name('blog.show');
 Route::get('blog',                [AdminBlogController::class, 'index'])->name('blog.index');
 Route::get('blog/create',         [AdminBlogController::class, 'create'])->name('blog.create');
 Route::post('blog',               [AdminBlogController::class, 'store'])->name('blog.store');
