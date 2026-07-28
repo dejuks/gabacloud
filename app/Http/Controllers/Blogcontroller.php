@@ -17,7 +17,6 @@ class BlogController extends Controller
             $query->where(fn($q) => $q
                 ->where('title', 'like', "%$s%")
                 ->orWhere('excerpt', 'like', "%$s%")
-                ->orWhere('content', 'like', "%$s%")
             );
         }
 

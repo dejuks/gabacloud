@@ -2,7 +2,7 @@
 @section('title', 'Order Detail')
 @section('content')
 <div class="max-w-2xl mx-auto">
-    <a href="{{ route('orders.index') }}" class="text-indigo-600 text-sm hover:underline mb-4 inline-block">← My Orders</a>
+    <a href="{{ route('orders.my') }}" class="text-indigo-600 text-sm hover:underline mb-4 inline-block">← My Orders</a>
 
     <div class="bg-white rounded-2xl shadow p-6 space-y-5">
         <div class="flex justify-between items-start">
